@@ -11,7 +11,7 @@ int main(){
  
   cin >> N >> K;  
   for(int i=0; i<N; i++){
-	cin >> a >> b;
+  	cin >> a >> b;
     ab.push_back(make_pair(a, b));
   }
   sort(ab.rbegin(), ab.rend());
@@ -22,8 +22,8 @@ int main(){
       ans = e.first + 1;
       break;
     }
-    ans = e.first;
   }
-  cout << ans << endl;  
+  if(tablet_cnt <= K) cout << 1 << endl;
+  else cout << ans << endl;  
   return 0;
 }
