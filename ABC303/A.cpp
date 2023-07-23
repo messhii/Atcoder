@@ -1,17 +1,15 @@
 #include <iostream>
+#include <string>
 using namespace std;
  
 int main(){
   int n;
-  char s[101], t[101];
+  string s, t;
   cin >> n >> s >> t;
-  for(int i=0; i<n; i++){
-    if(s[i] == t[i]) continue;
-    else if(s[i] == 'l' && t[i] == '1') continue;
-    else if(s[i] == '1' && t[i] == 'l') continue;
-    else if(s[i] == 'o' && t[i] == '0') continue;
-    else if(s[i] == '0' && t[i] == 'o') continue;
-    else{
+  for(int i=0; i<n; i++){    
+    if(!(s.at(i) == t.at(i)
+    || (s.at(i) == 'l' && t.at(i) == '1') || (s.at(i) == '1' && t.at(i) == 'l')
+    || (s.at(i) == 'o' && t.at(i) == '0') || (s.at(i) == '0' && t.at(i) == 'o'))){
       cout << "No" << endl;
       return 0;
     }
