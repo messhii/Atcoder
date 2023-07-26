@@ -1,28 +1,28 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <queue>
 using namespace std;
  
 int main(){
-    int N, D;
-    double d;
+    int N, D, v, dist;
     cin >> N >> D;
-    vector<int> x(N), y(N), infect(N,0), z, z2;
+    vector<int> x(N), y(N), infect(N,0);
+    queue<int> que; 
 
-    for(int i=0; i<N; i++){
-        cin >> x[i] >> y[i];
-        d = sqrt(pow((x[i]-x[0]),2) + pow((y[i]-y[0]),2));
-        if(d <= D) infect[i]++, z.push_back(i);
-    }
+    for(int i=0; i<N; i++) cin >> x[i] >> y[i];
+    que.push(0);
+    infect[0] = 1;
 
-    while(z.size()){
-        z2.clear();
-        z2 = z;
-        z.clear();
-        for(auto& e : z2){
-            for(int i=0; i<N; i++){
-                d = sqrt(pow((x[i]-x[e]),2) + pow((y[i]-y[e]),2));
-                if(d <= D && infect[i] == 0) infect[i]++, z.push_back(i);
+    while(!que.empty()){
+        v = que.front();
+        que.pop();
+        for(int i=1; i<N; i++){
+            if(infect[i]) continue;
+            dist = pow((x[i]-x[v]),2) + pow((y[i]-y[v]),2);
+            if(dist <= pow(D, 2)){
+                que.push(i);
+                infect[i] = 1;
             }
         }
     }
