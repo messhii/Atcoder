@@ -9,28 +9,27 @@ int main(){
   vector<string> s(n);
   
   for(int i=0; i<n; i++) cin >> s[i];
-  for(int i=0; i<n; i++){
-    for(int j=0; j<m; j++){
-      if(j+9 > m || i+9 > n) break;
-      flag = 0;
-      for(int i2=0; i2<9; i2++){
-        for(int j2=0; j2<9; j2++){
-          if((i2<3 && j2<3) || (i2>5 && j2>5)){
-            if(s[i+i2][j+j2] != '#'){
-              flag = 1;
-              break;
+
+  for(int i=0; i<n-8; i++){
+    for(int j=0; j<m-8; j++){
+        flag = 0;
+        // 「#」のチェック
+        for(int i2=0; i2<3; i2++){
+            for(int j2=0; j2<3; j2++){
+                if(s[i+i2][j+j2] != '#') flag = 1;
+                if(s[i+i2+6][j+j2+6] != '#') flag = 1;
             }
-          }
-          if((i2<3 && j2==3) || (i2==3 && j2<4) || (i2>4 && j2==5) || (i2==5 && j2>4)){
-            if(s[i+i2][j+j2] != '.'){
-              flag = 1;
-              break;
-            }
-          }
+            if(flag) break;
         }
-        if(flag) break;
-      }
+        // 「.」のチェック
+        for(int k=0; k<4; k++){
+            if(s[i+3][j+3-k] != '.') flag = 1;
+            if(s[i+3-k][j+3] != '.') flag = 1;
+            if(s[i+5][j+k+5] != '.') flag = 1;
+            if(s[i+k+5][j+5] != '.') flag = 1;
+        }
       if(!flag) cout << i+1 << " " << j+1 << endl;
+      
     }
   }
   return 0;
