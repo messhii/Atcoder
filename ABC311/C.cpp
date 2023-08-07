@@ -1,24 +1,28 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
  
 int main(){
-    int n, a2, i, j;
+    int n;
     cin >> n;
-    vector<int> a(n), b;
-    for(i=0; i<n; i++) cin >> a[i];
-
-    for(i=0; i<n; i++){
-        a2 = a[i];
-        b.clear();
-        b.push_back(a[i]);
-        for(j=1; j<n; j++){
-            b.push_back(a[b.back()-1]);
-            if(b.front() == b.back()) goto END_LOOP;
-        }
+    vector<int> a(n), check(n, 0);
+    queue<int> q;
+    for(int i=0; i<n; i++){
+        cin >> a[i];
+        a[i]--;
     }
-    END_LOOP:
-    cout << j << endl;
-    for(i=0; i<b.size()-1; i++) cout << b[i] << " ";
+    int i = 0;
+    while(!check[i]){
+        check[i] = 1;
+        q.push(i);
+        i = a[i];
+    }
+    while(q.front() != i) q.pop();
+    cout << q.size() << endl;
+    while(!q.empty()){
+        cout << q.front() + 1 << " ";
+        q.pop();
+    }
     return 0;
 }
