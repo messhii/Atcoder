@@ -6,20 +6,14 @@ using namespace std;
 
 int main(){
     int n;
-    string s;
+    string s1, s2;
     cin >> n;
     map<string, bool> check;
     for(int i=0; i<n; i++){
-        cin >> s;
-        if(check[s] == false){
-            check[s] = true;
-        }else{
-            reverse(s.begin(), s.end());
-            if(check[s] == false) check[s] = true;
-        }
-    }
-    for(auto& e : check){
-        cout << e << endl;
+        cin >> s1;
+        s2 = s1;
+        reverse(s2.begin(), s2.end());
+        if(check.find(s2) == check.end()) check[s1] = true;
     }
     cout << check.size() << endl;
     return 0;
