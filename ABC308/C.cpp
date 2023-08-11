@@ -7,12 +7,12 @@ using namespace std;
 int main(){
     int n, a, b;
     cin >> n;
-    vector<pair<int, double>> rate(n);
+    vector<pair<long double, int>> rate(n);
     for(int i=0; i<n; i++){
         cin >> a >> b;
-        rate.push_back(make_pair(i + 1, a / (a + b)));
+        rate[i] = make_pair((long double)b / (a + b), i + 1);
     }
     stable_sort(rate.begin(), rate.end());
-    for(auto e : rate) cout << e.first << " ";
+    for(auto e : rate) cout << e.second << " ";
     return 0;
 }
