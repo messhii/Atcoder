@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <stack>
 #include <string>
 using namespace std;
  
@@ -9,22 +8,18 @@ int main(){
     char end;
     string s;
     cin >> n >> m >> s;
-    vector<stack<int>> q(m);
+    string s2 = s;
+    vector<vector<int>> q(m);
     for(int i=0; i<n; i++){
         cin >> c;
-        q[c-1].push(i);
+        q[c-1].push_back(i);
     }
     for(auto e : q){
-        int i = 0;
-        while(!e.empty()){
-            if(i == 0) end = s[e.top()];
-            else s[tmp] = s[e.top()];
-            tmp = e.top();
-            e.pop();
-            i++;
+        int k = e.size();
+        for(int i=0; i<k; i++){
+            s2[e[(i + 1) % k]] = s[e[i]];
         }
-        s[tmp] = end;
     }
-    cout << s << endl;
+    cout << s2 << endl;
     return 0;
 }
