@@ -1,31 +1,30 @@
 #include <iostream>
-#define MAX 100
+#include <vector>
 using namespace std;
- 
+
 int main(){
-  int N, a[MAX][MAX], b[MAX][MAX];
-  int a1_cnt_max = 0, a1_0_cnt = 0, a1_90_cnt = 0, a1_180_cnt = 0, a1_270_cnt = 0;
-  cin >> N;
-  for(int i=0; i<N; i++){
-    for(int j=0; j<N; j++){
-      cin >> a[i][j];
-      if(a[i][j] == 1) a1_cnt_max++;
+    int n, cnt_ans = 0, cnt[4] = {0};
+    cin >> n;
+    vector<vector<int>> a(n, vector<int>(n)), b(n, vector<int>(n));
+
+    for(auto& e: a)for(auto& e2: e) cin >> e2;   
+    for(auto& e: b)for(auto& e2: e) cin >> e2;    
+
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(a[i][j] == 1) cnt_ans++; 
+            if(a[i][j] == 1 && b[i][j] == 1) cnt[0]++;
+            if(a[n-1-j][i] == 1 && b[i][j] == 1) cnt[1]++;
+            if(a[n-1-i][n-1-j] == 1 && b[i][j] == 1) cnt[2]++;
+            if(a[j][n-1-i] == 1 && b[i][j] == 1) cnt[3]++;
+        }
     }
-  }
-  for(int i=0; i<N; i++) for(int j=0; j<N; j++) cin >> b[i][j];
-  
-  for(int i=0; i<N; i++){
-    for(int j=0; j<N; j++){
-      if(a[i][j] == 1 && b[i][j] == 1) a1_0_cnt++;
-      if(a[N-1-j][i] == 1 && b[i][j] == 1) a1_90_cnt++;      
-      if(a[N-1-i][N-1-j] == 1 && b[i][j] == 1) a1_180_cnt++;
-      if(a[j][N-1-i] == 1 && b[i][j] == 1) a1_270_cnt++;    
+    for(int i=0; i<4; i++){
+        if(cnt[i] == cnt_ans){
+            cout << "Yes" << endl;
+            return 0;
+        }
     }
-  }
-  if(a1_0_cnt == a1_cnt_max || a1_90_cnt == a1_cnt_max || a1_180_cnt == a1_cnt_max || a1_270_cnt == a1_cnt_max){
-    cout << "Yes" << endl;
-  }else{
     cout << "No" << endl;
-  }
-  return 0;
+    return 0;
 }
