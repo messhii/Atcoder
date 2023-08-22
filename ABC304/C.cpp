@@ -1,36 +1,31 @@
 #include <iostream>
 #include <vector>
-#include <cmath>
 #include <queue>
+#include <utility>
+#include <cmath>
 using namespace std;
- 
+
 int main(){
-    int N, D, v, dist;
-    cin >> N >> D;
-    vector<int> x(N), y(N), infect(N,0);
-    queue<int> que; 
+    int n, d;
+    queue<int> q;
+    cin >> n >> d;
+    vector<bool> infected(n);
+    vector<pair<int, int>> pos(n);
 
-    for(int i=0; i<N; i++) cin >> x[i] >> y[i];
-    que.push(0);
-    infect[0] = 1;
-
-    while(!que.empty()){
-        v = que.front();
-        que.pop();
-        for(int i=1; i<N; i++){
-            if(infect[i]) continue;
-            dist = pow((x[i]-x[v]),2) + pow((y[i]-y[v]),2);
-            if(dist <= pow(D, 2)){
-                que.push(i);
-                infect[i] = 1;
-            }
+    for(auto& [x, y] : pos) cin >> x >> y;
+    infected[0] = true, q.push(0);
+    while(!q.empty()){
+        int v = q.front();
+        q.pop();
+        for(int i=0; i<n; i++){
+            if(infected[i]) continue;
+            int dist = pow(pos[v].first - pos[i].first, 2) + pow(pos[v].second - pos[i].second, 2);
+            if(dist <= pow(d, 2)) infected[i] = true, q.push(i);
         }
     }
-
-    for(int i=0; i<N; i++){
-        if(infect[i] > 0) cout << "Yes" << endl;
+    for(auto e : infected){
+        if(e) cout << "Yes" << endl;
         else cout << "No" << endl;
     }
-
     return 0;
 }
