@@ -3,19 +3,19 @@
 using namespace std;
  
 int main(){
-    int m, sum = 0, a, b;
+    int m, sum = 0;
     cin >> m;
     vector<int> d(m);
     for(int i=0; i<m; i++){
         cin >> d[i];
         sum += d[i];
     }
-    a = 1;
-    b = sum / 2 + 1;
-    for(auto e: d){
-        if(b - e > 0) b -= e, a++;        
+    int i = 0;
+    int mid = (sum + 1) / 2;
+    for(; i<m; i++){
+        if(mid > d[i]) mid -= d[i];
         else break;
     }
-    cout << a << " " << b << endl;
+    cout << i + 1 << " " << mid << endl;
     return 0;
 }
