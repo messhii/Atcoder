@@ -2,36 +2,29 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#define N 40
 using namespace std;
 
 int main(){
     int r, c;
-    string initial(N, '.');
-    vector<string> floor(N, initial), floor2(N, initial);
-    string str;
     cin >> r >> c;
-    for(int i=10; i<r+10; i++){
-        cin >> str;
-        floor[i].replace(10, c, str);
-    }
-    floor2 = floor;
-    for(int i=10; i<r+10; i++){
-        for(int j=10; j<c+10; j++){
-            if(floor2[i][j] != '.' && floor2[i][j] != '#'){
-                int k = floor2[i][j] - '0';
-                for(int i2=-k; i2<=k; i2++){
-                    for(int j2=-k; j2<=k; j2++){
-                        if(abs(i2) + abs(j2) <= k){
-                            floor[i+i2][j+j2] = '.';
-                        }
+    vector<string> b(r), b2(r);
+    vector<vector<bool>> blasted(r, vector<bool>(c, false));
+
+    for(string& s : b) cin >> s;
+    b2 = b;
+    for(int i=0; i<r; i++){
+        for(int j=0; j<c; j++){
+            if(!isdigit(b[i][j])) continue;
+            int power = b[i][j] - '0';
+            for(int i2=0; i2<r; i2++){
+                for(int j2=0; j2<c; j2++){
+                    if(abs(i - i2) + abs(j - j2) <= power){
+                        b2[i2][j2] = '.';
                     }
                 }
             }
         }
     }
-    for(int i=10; i<r+10; i++){
-        cout << floor[i].substr(10, c) << endl;
-    } 
+    for(string s : b2) cout << s << endl;
     return 0;
 }
