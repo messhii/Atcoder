@@ -1,20 +1,17 @@
 #include <iostream>
 #include <vector>
-#include <string>
 using namespace std;
  
 int main(){
-    int H, W, t_cnt = 0;
+    int H, W;
     cin >> H >> W;
     vector<string> s(H);
 
     for(int i=0; i<H; i++){
-        t_cnt = 0;
         cin >> s[i];
         for(int j=1; j<W; j++){
-            if(s[i].at(j-1) == 'T' && s[i].at(j) == 'T'){
-                s[i].replace(j-1, 2, "PC");
-                t_cnt = 0;
+            if(s[i][j-1] == 'T' && s[i][j] == 'T'){
+                s[i][j-1] = 'P', s[i][j] = 'C';
             }
         }
     }
