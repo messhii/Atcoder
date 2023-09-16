@@ -13,11 +13,11 @@ int main(){
             else break;
             j++;
         }
-        int cnt2 = 0, j = 0;
-        while(i - j >= 0 && i + j < s.length()){
-            if(s[i-j] == s[i+1+j]) cnt2 += 2;                
+        int cnt2 = 0, j2 = 0;
+        while(i - j2 >= 0 && i + j2 < s.length()){
+            if(s[i-j2] == s[i+1+j2]) cnt2 += 2;                
             else break;
-            j++;
+            j2++;
         }
         ans = max(ans, max(cnt, cnt2));
     }
