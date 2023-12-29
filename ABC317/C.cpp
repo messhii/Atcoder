@@ -1,27 +1,28 @@
 #include <iostream>
-#include <vector>
-#include <cmath>
 using namespace std;
 
 int n, m;
-int d[15][15], ans = 0;
+int dist[15][15];
 bool visited[15];
+int ans = 0;
 
-void dfs(int x, int sum){
+void dfs(int v, int sum){
+    visited[v] = true;
     ans = max(ans, sum);
-    visited[x] = true;
-    for(int i=1; i<=n; i++){
-        if(!visited[i] && d[x][i]) dfs(i, sum + d[x][i]);
+    for(int v2=1; v2<=n; v2++){
+        if(!visited[v2] && dist[v][v2] > 0){
+            dfs(v2, sum + dist[v][v2]);
+        }
     }
-    visited[x] = false;
+    visited[v] = false;
 }
 
 int main(){
-    int a, b, c;
     cin >> n >> m;
     for(int i=0; i<m; i++){
+        int a, b, c;
         cin >> a >> b >> c;
-        d[a][b] = d[b][a] = c;
+        dist[a][b] = dist[b][a] = c;
     }
     for(int i=1; i<=n; i++){
         dfs(i, 0);
